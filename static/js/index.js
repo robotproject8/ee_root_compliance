@@ -1,106 +1,22 @@
-window.HELP_IMPROVE_VIDEOJS = false;
+// Set this to the final video's Google Drive file URL when it is available.
+// Keep it empty to omit both the Video button and section.
+const VIDEO_DRIVE_URL = '';
 
-var INTERP_BASE = "./static/interpolation/stacked";
-var NUM_INTERP_FRAMES = 240;
-
-var interp_images = [];
-function preloadInterpolationImages() {
-  for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
-    var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
-    interp_images[i] = new Image();
-    interp_images[i].src = path;
+if (VIDEO_DRIVE_URL) {
+  const videoURL = new URL(VIDEO_DRIVE_URL);
+  const fileID = videoURL.hostname === 'drive.google.com'
+    ? videoURL.pathname.match(/^\/file\/d\/([a-zA-Z0-9_-]+)(?:\/|$)/)?.[1]
+    : null;
+  if (fileID) {
+    const player = document.createElement('iframe');
+    player.src = `https://drive.google.com/file/d/${fileID}/preview`;
+    player.title = 'Directional and Tunable End-Effector and Root Compliance — Project Video';
+    player.allow = 'autoplay; fullscreen';
+    player.allowFullscreen = true;
+    player.loading = 'lazy';
+    document.getElementById('video-player').append(player);
+    document.getElementById('video-external').href = VIDEO_DRIVE_URL;
+    document.getElementById('video').hidden = false;
+    document.getElementById('video-link').hidden = false;
   }
 }
-
-function setInterpolationImage(i) {
-  var image = interp_images[i];
-  image.ondragstart = function() { return false; };
-  image.oncontextmenu = function() { return false; };
-  $('#interpolation-image-wrapper').empty().append(image);
-}
-
-
-$(document).ready(function() {
-    // Check for click events on the navbar burger icon
-    $(".navbar-burger").click(function() {
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
-    });
-
-    var baseCarouselOptions = {
-				slidesToScroll: 1,
-				slidesToShow: 3,
-				loop: true,
-				infinite: true,
-				autoplay: false,
-				autoplaySpeed: 3000,
-    };
-
-    var primaryCarousel = bulmaCarousel.attach('#results-carousel', baseCarouselOptions) || [];
-    var llmCarousel = bulmaCarousel.attach('#llm-results-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 2,
-        loop: true,
-        infinite: true,
-        autoplay: false,
-        autoplaySpeed: 3000,
-        breakpoints: [
-          { changePoint: 480, slidesToShow: 1, slidesToScroll: 1 },
-          { changePoint: 768, slidesToShow: 2, slidesToScroll: 1 },
-          { changePoint: 1024, slidesToShow: 2, slidesToScroll: 1 }
-        ]
-    }) || [];
-    var keyboardCarousel = bulmaCarousel.attach('#keyboard-results-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 2,
-        loop: true,
-        infinite: true,
-        autoplay: false,
-        autoplaySpeed: 3000,
-        breakpoints: [
-          { changePoint: 480, slidesToShow: 1, slidesToScroll: 1 },
-          { changePoint: 768, slidesToShow: 2, slidesToScroll: 1 },
-          { changePoint: 1024, slidesToShow: 2, slidesToScroll: 1 }
-        ]
-    }) || [];
-
-		// Initialize the carousels we actually use on the page
-    var carousels = primaryCarousel.concat(llmCarousel, keyboardCarousel);
-
-    // Loop on each carousel initialized
-    for(var i = 0; i < carousels.length; i++) {
-    	// Add listener to  event
-    	carousels[i].on('before:show', state => {
-    		console.log(state);
-    	});
-    }
-
-    // Access to bulmaCarousel instance of an element
-    var element = document.querySelector('#my-element');
-    if (element && element.bulmaCarousel) {
-    	// bulmaCarousel instance is available as element.bulmaCarousel
-    	element.bulmaCarousel.on('before-show', function(state) {
-    		console.log(state);
-    	});
-    }
-
-    /*var player = document.getElementById('interpolation-video');
-    player.addEventListener('loadedmetadata', function() {
-      $('#interpolation-slider').on('input', function(event) {
-        console.log(this.value, player.duration);
-        player.currentTime = player.duration / 100 * this.value;
-      })
-    }, false);*/
-    preloadInterpolationImages();
-
-    $('#interpolation-slider').on('input', function(event) {
-      setInterpolationImage(this.value);
-    });
-    setInterpolationImage(0);
-    $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
-
-    bulmaSlider.attach();
-
-})

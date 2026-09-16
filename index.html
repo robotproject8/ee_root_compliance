@@ -1,407 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="CEER: Compliant End-Effector and Root Control as a Unified Interface for Hierarchical Humanoid Loco-Manipulation">
-  <meta name="keywords" content="Humanoid, Compliance, Hierachical Control, Loco-Manipulation, Robotics">
+  <meta name="description" content="Directional and tunable end-effector and root compliance for humanoid loco-manipulation. Independent Cartesian stiffness control and switchable root compliance through a shared interface.">
+  <meta name="keywords" content="Humanoid, Compliance, Hierarchical Control, Loco-Manipulation, Robotics">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CEER: Compliant End-Effector and Root Control as a Unified Interface for Hierarchical Humanoid Loco-Manipulation</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
+  <meta property="og:title" content="Directional and Tunable End-Effector and Root Compliance for Humanoid Loco-Manipulation">
+  <meta property="og:description" content="Directional EE compliance, online stiffness adjustment, and concurrent EE–root compliance for humanoid physical interaction.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://robotproject8.github.io/ee_root_compliance/static/images/ceer2-overview.png">
+  <title>Directional and Tunable End-Effector and Root Compliance for Humanoid Loco-Manipulation</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans&amp;display=swap">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <link rel="icon" href="./static/images/ceer2-favicon.svg" type="image/svg+xml">
+  <script defer src="./static/js/index.js"></script>
 </head>
 <body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="navbar project-nav" aria-label="Main navigation">
+    <a class="navbar-item" href="./" aria-label="Project home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>
     </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://robotproject8.github.io/ceer_page/">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <!--
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
-      -->
-    </div>
-
-  </div>
-</nav>
-
-
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title"><span style="color: #d62728;">CEER</span>: <span style="color: #d62728;">C</span>ompliant <span style="color: #d62728;">E</span>nd-<span style="color: #d62728;">E</span>ffector and <span style="color: #d62728;">R</span>oot Control as a Unified Interface for Hierarchical Humanoid Loco-Manipulation</h1>
-          
-          <div class="is-size-5 publication-authors">
-          <div class="author-row">
-            <span class="author-block"><a href="https://luoxinyuan.github.io/">Xinyuan Luo</a>,</span>
-            <span class="author-block"><a href="https://robotproject8.github.io/ceer_page/">Xingrui Chen</a>,</span>
-            <span class="author-block"><a href="https://xunjianyin.github.io/">Xunjian Yin</a>,</span>
-            <span class="author-block"><a href="https://robotproject8.github.io/ceer_page/">Hongxuan Wu</a>,</span>
-            <span class="author-block"><a href="https://boxixia.github.io/">Boxi Xia</a>,</span>
+  </nav>
+  <main id="main">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop has-text-centered">
+          <h1 class="title is-1 publication-title"><span class="accent">Directional and Tunable</span> End-Effector and Root Compliance for Humanoid Loco-Manipulation</h1>
+          <div class="is-size-5 publication-authors author-row">
+            <span class="author-block">Anonymous Authors</span>
           </div>
-
-          <div class="author-row">
-            <span class="author-block"><a href="https://zhuoqun-chen.github.io/">Zhuoqun Chen</a>,</span>
-            <span class="author-block"><a href="https://jinzhou-li.com/">Jinzhou Li</a>,</span>
-            <span class="author-block"><a href="https://generalroboticslab.com/director">Boyuan Chen</a>,</span>
-            <span class="author-block"><a href="https://xianyicheng.github.io/">Xianyi Cheng</a></span>
-          </div>
-        </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Duke University</span>
-          </div>
-          
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="./static/videos/ceer.pdf" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2605.19981" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file"></i></span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://youtu.be/8dyjPE88mqY" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-youtube"></i></span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/stevenryanrobot/ceer_deploy" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>GitHub Demo</span>
-                </a>
-              </span>
-            </div>
+          <div class="publication-links">
+            <a href="./static/papers/CEER2.pdf" class="button is-normal is-rounded is-dark">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span>
+              <span>Paper</span>
+            </a>
+            <a id="video-link" href="#video" class="button is-normal is-rounded is-dark" hidden>
+              <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4v16l12-8Z"/></svg></span><span>Video</span>
+            </a>
+            <button class="button is-normal is-rounded is-dark code-pending" type="button" disabled>
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></svg></span>
+              <span>Code · Coming soon</span>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="results-carousel-shell">
-        <div class="carousel-note">Teleoperated demos</div>
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item item-box_rotate">
-            <video poster="" id="box_rotate" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/box_rotate.mp4"
-                      type="video/mp4">
-            </video>
-            <p class="has-text-centered is-size-6 mt-2">Box-on-wall Rotate</p>
-          </div>
-
-          <div class="item item-write_and_wipe">
-            <video poster="" id="write_and_wipe" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/write_and_wipe.mp4"
-                      type="video/mp4">
-            </video>
-            <p class="has-text-centered is-size-6 mt-2">Write and Wipe</p>
-          </div>
-
-          <div class="item cap_insertion">
-            <video poster="" id="cap_insertion" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/cap_insertion.mp4"
-                      type="video/mp4">
-            </video>
-            <p class="has-text-centered is-size-6 mt-2">Cap Insertion</p>
-          </div>
-
-          <div class="item box_transport">
-            <video poster="" id="box_transport" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/box_transport.mp4"
-                      type="video/mp4">
-            </video>
-            <p class="has-text-centered is-size-6 mt-2">Box Transport</p>
-          </div>
-
-          <div class="item cart_pulling">
-            <video poster="" id="cart_pulling" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/cart_pulling.mp4"
-                      type="video/mp4">
-            </video>
-            <p class="has-text-centered is-size-6 mt-2">Cart Pulling</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Abstract— Humanoid robots have achieved impressive loco-motion performance, yet contact-rich and long-horizon manipulation remains a major bottleneck. Manipulation is inherently contact-rich and demands compliant whole-body control for stable interaction, while its diversity and long-horizon nature favor modular, planner-compatible interfaces over joint-space tracking.
-            We propose CEER, a compliant end-effector–root (EE-root) control abstraction for modular humanoid loco-manipulation within a hierarchical planning framework. CEER enables compliance-aware whole-body control in an interpretable task space defined by root motion commands and end-effector pose targets, and supports plug-and-play integration with heterogeneous high-level planners. A teacher–student framework is adopted to distill a general motion-tracking controller into a low-level policy that consumes only EE-root commands.
-            We further construct a hierarchical system that integrates heterogeneous planners and task modules through the EE-root interface, enabling diverse manipulation tasks without retraining the underlying whole-body policy. Experiments in simulation and on hardware demonstrate 3.3 cm end-effector tracking accuracy with substantially reduced jerk compared to baselines, stable contact-rich manipulation under teleoperation, and up to 70% success in simulated single-object loco-manipulation tasks within a room-scale environment. These results indicate that compliant EE-root control provides a practical abstraction for humanoid loco-manipulation, enabling modular and scalable integration of diverse skills.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/8dyjPE88mqY"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <!-- <h2 class="title is-3">Animation</h2> -->
-
-        <h3 class="title is-4">System Framework</h3>
-        <div class="content has-text-justified">
-          <p>
-            Overview of the proposed three-layer hierarchical system. At the high level, a language instruction is interpreted by an LLM-based skill manager, which selects and composes mid-level skills based on environmental information. The mid-level consists of plug-and-play locomotion and manipulation modules that generate unified end-effector and root commands. At the low level, a unified CEER policy converts these commands into joint-space actions. This modular design decouples task reasoning, skill execution, and low-level control, enabling scalable and extensible system integration.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <img class="system-framework-image"
-               src="./static/images/system_framework.png"
-               alt="System framework overview" />
-        </div>
-        <br/>
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">System Evaluation on Long-Horizon Tasks in a Room Scene</h3>
-        <div class="content has-text-justified">
-          <p>
-            We evaluate the proposed three-layer hierarchical system in simulation on long-horizon household tasks. Under the unified end-effector and root control interface, tasks are decomposed into locomotion, manipulation invocation, and task completion. To focus on system-level capability and connectivity, we use a minimal skill set and a single grasp primitive across all tasks.
-          </p>
-          <p>
-            The simulated room contains a blue bed, a yellow table, and a green sofa. The videos below compare two control modes on the same four tasks: LLM-driven execution and human keyboard teleoperation.
-          </p>
-          <p>
-            For the human baseline, five participants perform the same tasks through keyboard teleoperation with the same control degrees of freedom as the robot. After a short practice period, each participant is given two attempts per task type, for a total of 40 trials. We record task success rate and completion time.
-          </p>
-          <p>
-            In keyboard teleoperation, <code>W</code>, <code>S</code>, <code>A</code>, and <code>D</code> control forward, backward, left, and right base velocity; <code>Q</code> and <code>E</code> control yaw rotation; <code>I</code>, <code>K</code>, <code>J</code>, and <code>L</code> control end-effector motion in the horizontal plane; and <code>U</code> and <code>O</code> move the end-effectors up and down along the vertical axis. The two end-effectors are controlled symmetrically with respect to the robot's sagittal plane.
-          </p>
-        </div>
-        <h4 class="title is-5">LLM-Controlled Examples</h4>
-        <div class="llm-carousel-block">
+    </section>
+    <section class="hero teaser">
+      <div class="hero-body">
         <div class="container is-max-desktop">
-          <div id="llm-results-carousel" class="carousel results-carousel">
-            <div class="item item-llm-middle">
-              <video poster="" id="llm_middle" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/LLM move the blue box to the middle of yellow and red box.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the middle of the yellow and red boxes</p>
-            </div>
-
-            <div class="item item-llm-bed">
-              <video poster="" id="llm_bed" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/LLM move the blue box to the bed.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the bed</p>
-            </div>
-
-            <div class="item item-llm-sofa">
-              <video poster="" id="llm_sofa" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/LLM move the blue box to the sofa.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the sofa</p>
-            </div>
-
-            <div class="item item-llm-bed-red">
-              <video poster="" id="llm_bed_red" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/LLM move the blue box to bed, then move the red box to bed.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the bed, then move the red box to the bed</p>
+          <figure>
+            <img class="paper-figure" src="./static/images/ceer2-overview.png" width="1513" height="880" alt="Humanoid demonstrations: directional hand and root compliance for carrying, adjustable vertical stiffness while dragging a payload, and compliant writing compared with a stiff setting that breaks the tool.">
+            <figcaption class="teaser-caption">Directional and tunable end-effector compliance, together with switchable root compliance, enables versatile humanoid physical interaction.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class="section abstract-section" aria-labelledby="abstract-title">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 id="abstract-title" class="title is-3 has-text-centered">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>General humanoid motion-tracking policies reproduce diverse behaviors but do not specify responses to physical interaction. Existing compliance methods mainly target selected links or end effectors, without jointly controlling axis-wise stiffness and locomotion behavior. We formulate directional and tunable end-effector (EE) compliance together with root resistance and damping modes. Our two-level hierarchical RL controller combines a stiff low-level whole-body tracking policy with high-level residual policies that modify its shared EE–root command interface. An analytical compliance-space mixture-of-experts (MoE) composes 10 experts, enabling independent, continuous stiffness commands along each Cartesian axis over 100–600 N/m. A root-mode command selects one root resistance policy or one of two root damping policies. Using privileged forces, a teacher–student pipeline jointly trains the high-level policies and a force estimator, enabling deployment without wrist force/torque sensors. Simulation evaluations show accurate full-range directional EE compliance, workspace consistency, and distinct root modes. Real-world tasks further demonstrate directional EE compliance, online adjustment of EE stiffness, and concurrent EE–root compliance through the shared interface.</p>
             </div>
           </div>
         </div>
-        </div>
-        <h4 class="title is-5">Keyboard-Controlled Examples</h4>
-        <div class="llm-carousel-block">
-        <div class="container is-max-desktop">
-          <div id="keyboard-results-carousel" class="carousel results-carousel">
-            <div class="item item-keyboard-middle">
-              <video poster="" id="keyboard_middle" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/keyboard to the middle.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the middle of the yellow and red boxes</p>
-            </div>
-
-            <div class="item item-keyboard-bed">
-              <video poster="" id="keyboard_bed" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/keyboard move to the bed.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the bed</p>
-            </div>
-
-            <div class="item item-keyboard-sofa">
-              <video poster="" id="keyboard_sofa" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/keyboard move the blue box to the sofa.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the sofa</p>
-            </div>
-
-            <div class="item item-keyboard-two-boxes">
-              <video poster="" id="keyboard_two_boxes" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/keyboard move two boxes.mp4"
-                        type="video/mp4">
-              </video>
-              <p class="has-text-centered is-size-6 mt-2">Move the blue box to the bed, then move the red box to the bed</p>
-            </div>
-          </div>
-        </div>
-        </div>
-        <!--/ Re-rendering. -->
-
       </div>
-    </div>
-    <!--/ Animation. -->
-
-	  </div>
-</section>
-
-<section class="section" id="citation">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Citation</h2>
-        <pre><code>@misc{luo2026ceercompliantendeffectorroot,
-      title={CEER: Compliant End-Effector and Root Control as a Unified Interface for Hierarchical Humanoid Loco-Manipulation}, 
-      author={Xinyuan Luo and Xingrui Chen and Xunjian Yin and Hongxuan Wu and Boxi Xia and Zhuoqun Chen and Jinzhou Li and Boyuan Chen and Xianyi Cheng},
-      year={2026},
-      eprint={2605.19981},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2605.19981}, 
-}</code></pre>
+    </section>
+    <section id="video" class="section" aria-labelledby="video-title" hidden>
+      <div class="container is-max-desktop">
+        <h2 id="video-title" class="title is-3 has-text-centered">Video</h2>
+        <div id="video-player" class="publication-video"></div>
+        <p class="video-fallback has-text-centered"><a id="video-external" target="_blank" rel="noopener noreferrer">Watch on Google Drive</a></p>
       </div>
+    </section>
+    <section class="section" aria-labelledby="framework-title">
+      <div class="container is-max-desktop">
+        <h2 id="framework-title" class="title is-3 has-text-centered">System Framework</h2>
+        <figure>
+          <img class="paper-figure" src="./static/images/ceer2-framework.png" width="1483" height="702" loading="lazy" alt="Two-stage hierarchical RL framework: a stiff low-level tracking policy, high-level compliance residual policies, an analytical mixture-of-experts gate for end-effector stiffness, and a root-mode switch.">
+          <figcaption class="content framework-caption">A stiff low-level whole-body tracking policy provides a shared EE–root command interface. High-level residual policies learn responses to external forces. At deployment, an analytical compliance-space gate composes 10 EE compliance experts according to the commanded Cartesian stiffness, while a mode switch selects a root resistance or damping policy. The low-level policy remains active throughout.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container is-max-desktop has-text-centered">
+      <p>Website adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies project page template</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
     </div>
-  </div>
-</section>
-
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/ceer.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/luoxinyuan" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-	    <div class="columns is-centered">
-	      <div class="column is-8">
-	        <div class="content">
-	          <p>
-	            Website adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies project page template</a>.
-	          </p>
-            <p>
-              <strong>Acknowledgement</strong><br>
-              This work is supported by DARPA TIAMAT program under award HR00112490419 and ARO under award W911NF2410405.
-            </p>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-</footer>
-
+  </footer>
 </body>
 </html>

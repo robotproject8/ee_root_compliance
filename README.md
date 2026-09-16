@@ -1,16 +1,25 @@
-# Nerfies
+# Directional and Tunable End-Effector and Root Compliance
 
-This is the repository that contains source code for the [Nerfies website](https://nerfies.github.io).
+Project website for **Directional and Tunable End-Effector and Root Compliance for Humanoid Loco-Manipulation**, by Anonymous Authors.
 
-If you find Nerfies useful for your work please cite:
-```
-@article{park2021nerfies
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}
-```
+This page reuses the previous CEER site's Nerfies/Bulma layout. It includes the current paper, abstract, overview figure, and system framework. Code is marked **Coming soon**. Unavailable resources are omitted.
 
-# Website License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+## Preview
+
+Run `python3 -m http.server 8080` from this directory and open `http://localhost:8080`.
+
+No build step is required. All asset paths support GitHub Pages project hosting at `/ee_root_compliance/`.
+
+## Update content
+
+- Paper: `static/papers/CEER2.pdf` (copied from the provided CEER2 paper).
+- Figures: `static/images/ceer2-overview.png` and `ceer2-framework.png` (paper Figures 1 and 2).
+- Title, authors, abstract, and framework description: `index.html`.
+- Final video: set `VIDEO_DRIVE_URL` in `static/js/index.js` to its Google Drive `/file/d/…/view` URL. The player, navigation button, and external fallback link then appear automatically. The video must be viewable by the intended audience.
+- Keep the video URL empty while the final video is unavailable. The earlier raw footage folder is not used as the project video.
+
+Original CEER assets remain in the repository for reference; this page does not display them.
+
+## Template attribution
+
+Adapted from the [Nerfies project page template](https://github.com/nerfies/nerfies.github.io), licensed under [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Research content retains its authors' rights.
